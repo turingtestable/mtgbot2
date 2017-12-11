@@ -25,9 +25,8 @@ const renderCard = (card) => {
 }
 
 const renderListOfCards = (cardList, delimiter) => {
-  console.log('rendering list ' + cardList)
+  console.log('rendering list')
   delimiter = delimiter || '\n---------------------------\n'
-  console.log('returning list')
   return cardList.map(renderCard).join(delimiter)
 }
 
