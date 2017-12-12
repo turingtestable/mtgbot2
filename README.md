@@ -12,7 +12,7 @@ This bot is as simple Slackbot that hangs out and looks for card names like `!Ki
 
 `npm run prod`
 
-Use an app like Postman to POST to `http://localhost:3000` with a raw body in the structure which Slack uses;
+Use an app like Postman to POST to `http://localhost:3000` with a raw body in the structure which Slack uses and the local server will post to the slack team/channel for you.
 ```
 {
   "event": {
