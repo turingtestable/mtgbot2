@@ -4,8 +4,8 @@ const urls = require('./urls')
 
 const lookupPackOfCardsBySet = set => {
   const targetUrl = urls.boosterSearchBySet(set)
-  console.log('Making mtgapi request for set', set)
-  console.log('Target url', targetUrl)
+  console.log('Making mtgapi request for set ', set)
+  console.log('Target url ', targetUrl)
 
   return fetch(targetUrl)
     .then(response => response.json())
@@ -24,7 +24,7 @@ const lookupCardByMessage = text => {
 
   const params = QueryString.stringify(queryParams)
   const targetUrl = urls.cardSearch + params
-  console.log('Making mtgapi request with params', params)
+  console.log('Making mtgapi request with params, ', params)
   console.log(targetUrl)
 
   return fetch(targetUrl)
@@ -41,7 +41,6 @@ const lookupCardByMessage = text => {
           ? firstCard.number.replace('a', 'b')
           : firstCard.number.replace('b', 'a')
 
-
         return cardLookupBySetNumber({ set: firstCard.set, number: otherCardNumber })
           .then(nextCard => { cards.push(nextCard) })
           .then(() => cards)
@@ -51,7 +50,7 @@ const lookupCardByMessage = text => {
     })
 }
 
-const cardLookupBySetNumber = options => {
+const cardLookupBySetNumber = (options) => {
   const set = options.set
   const number = options.number
 
@@ -63,11 +62,11 @@ const cardLookupBySetNumber = options => {
   }
 
   const params = QueryString.stringify(queryParams)
-  const targetUrl = urls.cardSearch + params
-  console.log('Making mtgapi request with params', params)
-  console.log('Target url', targetUrl)
+  console.log('Making mtgapi request')
+  console.log(params)
+  console.log(urls.cardSearch + params)
 
-  return fetch(targetUrl)
+  return fetch(urls.cardSearch + params)
     .then(response => response.json())
     .then(data => {
       console.log(data)
