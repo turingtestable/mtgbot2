@@ -8,7 +8,7 @@ This bot is as simple Slackbot that hangs out and looks for card names like `!Ki
 
 `npm install`
 
-`set OAUTH=xxxxxxx`
+`set OAUTH_TOKEN=xxxxxxx`
 
 `npm run prod`
 
