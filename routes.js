@@ -1,13 +1,9 @@
-//
 // This defines three routes that our API is going to use.
-//
-const fetch = require('node-fetch')
-const stringify = require('json-stringify')
 const handlers = require('./handlers')
-  
+
 const routes = app => {
   // Handle posts from slack
-  app.post('/api', function(req, res) {
+  app.post('/api', function (req, res) {
     console.log('got api request')
     const body = req.body
     // Compare tokens
@@ -16,9 +12,7 @@ const routes = app => {
     } else {
       return res.send(handlers.handleEventCallback(body))
     }
-    console.log(body)
-    return res.send('unknown event type')
   })
 }
- 
+
 module.exports = routes

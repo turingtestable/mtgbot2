@@ -1,5 +1,8 @@
 const fetch = require('node-fetch')
 const stringify = require('json-stringify')
+const slackBaseUrl = process.env.NODE_ENV === 'production'
+  ? 'https://slack.com/api/'
+  : 'http://2d11cc07.ngrok.io/'
 
 const makeChannelSender = channel => message => {
   const headers = {
@@ -7,7 +10,7 @@ const makeChannelSender = channel => message => {
     'Authorization': 'Bearer ' + process.env.OAUTH_TOKEN
   }
 
-  fetch('https://slack.com/api/chat.postMessage', {
+  fetch(slackBaseUrl + 'chat.postMessage', {
     method: 'POST',
     headers: headers,
     body: stringify({
@@ -21,13 +24,13 @@ const makeChannelSender = channel => message => {
     })
 }
 
-const getUserList = function() {
+const getUserList = function () {
   const headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ' + process.env.OAUTH_TOKEN
   }
-  
-  return fetch('https://slack.com/api/users.list', {
+
+  return fetch(slackBaseUrl + 'users.list', {
     method: 'GET',
     headers: headers
   }).then(response => response.json())
@@ -42,40 +45,42 @@ const makeDMSender = (values, player) => {
   console.log('Sending message to ' + player)
   const userId = getIdByName(data, player)
   console.log('User: ' + player + ' Id: ' + userId)
-  
-  const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + process.env.OAUTH_TOKEN
-    }
 
-    fetch('https://slack.com/api/chat.postMessage', {
-      method: 'POST',
-      headers: headers,
-      body: stringify({
-        channel: userId,
-        text: message,
-        as_user: false
-      })
-    }).then(response => response.json())
-      .then(json => { console.log(json) })
-      .catch(ex => {
-        console.log('Err: ' + ex)
-      })
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + process.env.OAUTH_TOKEN
+  }
+
+  fetch(slackBaseUrl + 'chat.postMessage', {
+    method: 'POST',
+    headers: headers,
+    body: stringify({
+      channel: userId,
+      text: message,
+      as_user: false
+    })
+  }).then(response => response.json())
+    .then(json => { console.log(json) })
+    .catch(ex => {
+      console.log('Err: ' + ex)
+    })
 }
 
 const getIdByName = (memberList, name) => {
-  const result  = memberList.filter(member => {
-    if (member.name === 'SeriousMTGBot'){
+  const result = memberList.filter(member => {
+    if (member.name === 'SeriousMTGBot') {
       console.log(member)
     }
     return member['name'] === name
   })
-  if (result){
+
+  if (result) {
     console.log('Found user')
   } else {
     console.log('User not found')
   }
-  return result ? result[0].id : null;
+
+  return result ? result[0].id : null
 }
 
 const helpers = {
@@ -87,6 +92,5 @@ const helpers = {
     makeChannelSender(channel)('Rules lookup not implemented yet, sorry friends')
   }
 }
-
 
 module.exports = helpers

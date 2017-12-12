@@ -1,0 +1,30 @@
+{
+  "name": "mtgbot2",
+  "version": "1.0.0",
+  "description": "In loving memory of MTGBot, who broke for reasons unknown.",
+  "main": "card-lookups.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=dev node server.js",
+    "prod": "cross-env NODE_ENV=production node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/turingtestable/mtgbot2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/turingtestable/mtgbot2/issues"
+  },
+  "homepage": "https://github.com/turingtestable/mtgbot2#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cross-env": "^5.1.1",
+    "express": "^4.16.2",
+    "json-stringify": "^1.0.0",
+    "node-fetch": "^1.7.3",
+    "querystring": "^0.2.0"
+  }
+}
